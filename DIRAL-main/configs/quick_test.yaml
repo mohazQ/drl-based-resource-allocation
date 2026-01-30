@@ -1,0 +1,96 @@
+experiment_name: "quick_test_graph_generation"
+realness: False
+simulations: 1
+time_slots: 100
+episode_interval: 25
+attempt_prob: 1.0
+memory_size: 1024
+plot_interval: 50
+step_size: 6
+save_freq: 50
+save_results: True
+save_model: False
+load_model: False
+load_slot: 4999
+training: True
+explore: 20
+greedy: 50
+training_stop: 80
+action_skip_enable: False
+train_after_episode: True
+global_reward_avg: True
+save_positions: True
+enable_channel: False
+ia_penalty_enable: False
+ia_penalty_threshold: 5
+ia_penalty_value: -10
+EnvironmentReal:
+  congestion_test: False
+  num_channels: 10
+  num_users: 12
+  distance_based_reward: False
+  reward_design: 3
+  state_design: 2
+  pos_dist: 2
+  state_bins: 10
+  state_range: 250
+  add_reward: False
+  add_index: True
+  port: 5555
+  sim_start: False
+  sim_seed: 0
+EnvironmentTest:
+  congestion_test: True
+  load_positions: False
+  load_file_pos: "save_results/realness/drqn/config_realness_pos_store/positions_2000.npy"
+  num_channels: 3
+  num_users: 4
+  mobility: True
+  mobility_vary: False
+  highway_length: 100
+  enable_fingerprint: False
+  reward_design: 2
+  communication_range: 250
+  State:
+    type: 2
+    add_action: True
+    add_reward: False
+    add_index: False
+    add_velocity: False
+    action_index: "binary"
+    piggybacking: False
+    add_position: False
+    add_positional_dist: False
+    add_positional_dist_piggy: True
+    add_positional_dist_type: 2
+    add_channel_obs: False
+    num_bins: 20
+RLAgent:
+  algorithm: "DRQN"
+  policy: "eps_greedy"
+  batch_size: 32
+  n_batch: 1
+  pretrain_length: 32
+  target_update: 20
+  hidden_size: 128
+  learning_rate: 0.0001
+  eps_init: 0.99
+  eps_decay: 0.99
+  explore_start: .99
+  explore_stop: 0.001
+  decay_rate: 0.001
+  gamma: 0.3
+  noise: 0.1
+  step_size: 6
+  alpha: 0
+  beta: 1
+  temperature: 0.05
+  network:
+    cuDNN_support: False
+    use_lstm_input: True
+    use_dueling: False
+    use_double: True
+    skip_error: 0
+    layers:
+      1: 64
+      2: 64
